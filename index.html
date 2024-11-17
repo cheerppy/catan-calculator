@@ -57,7 +57,7 @@
                 console.log("total ok")
                 if(!this.numberOfPlayers) return ""
                 console.log("num ok")
-                return Math.floor((999 / this.numberOfPlayers) * (this.vp / this.total))
+                return Math.floor(this.numberOfPlayers * (999 / 12) * (this.vp / this.total))
             }
         }
     }
