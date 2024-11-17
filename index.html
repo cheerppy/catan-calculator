@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>カタン計算機</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <select v-model.number="numberOfPlayers" >
+                <option value="" disabled>-</option>
+                <option :value="3">3人カタン</option>
+                <option :value="4" default>4人カタン</option>
+            </select>
+                <span>人カタン</span>
+            <br>
+            <span>自分の点数</span>
+            <input type="number" v-model="vp" min="2" max="10">
+            <span>全体の点数</span>
+            <input type="number" v-model="total" min="6" max="37">
+        </div>
+        <div>
+            <span>占有点</span>
+            {{occupancy}}
+
+        </div>
+    </div>
+</body>
+<script>
+  const { createApp, ref } = Vue
+
+  createApp({
+    data() {
+      return {
+        numberOfPlayers: 4,
+        _vp: null,
+        _total: null
+      }
+    },
+    computed: {
+        vp:{
+            get(){ return this._vp || "" },
+            set(val){ this._vp = +val }
+        },
+        total:{
+            get(){ return this._total || "" },
+            set(val){ this._total = +val }
+        },
+        occupancy:{
+            get(){ 
+                console.log("occ")
+                if(!this.vp) return ""
+                console.log("vp ok")
+                if (!this.total) return ""
+                console.log("total ok")
+                if(!this.numberOfPlayers) return ""
+                console.log("num ok")
+                return (999 / this.numberOfPlayers) * (this.vp / this.total)
+            }
+        }
+    }
+  }).mount('#app')
+</script>
+</html>
